@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -52,6 +58,7 @@ module.exports = {
           700: "#8A2061",
           800: "#701A4E",
           100: "#F9E6F3",
+          50: "#f4d0e6",
         },
       },
       borderRadius: {
@@ -84,6 +91,10 @@ module.exports = {
           "0%": { transform: "translateY(0)" },
           "100%": { transform: "translateY(100%)" },
         },
+        spin: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -92,6 +103,7 @@ module.exports = {
         "slide-out": "slide-out 0.5s ease-out",
         "slide-in-from-bottom": "slide-in-from-bottom 0.3s ease-out",
         "slide-out-to-bottom": "slide-out-to-bottom 0.3s ease-out",
+        spin: "spin 1s linear infinite",
       },
     },
   },

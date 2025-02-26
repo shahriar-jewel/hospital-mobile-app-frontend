@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Search, HelpCircle, FileText, Pill } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -10,6 +10,7 @@ import { ProductCard } from "@/components/cards/product-card"
 import { ActionButton } from "@/components/buttons/action-button"
 import { BottomNav } from "@/components/navigation/bottom-nav"
 import { CartIcon } from "@/components/cart/cart-icon"
+import { Loader } from "@/components/ui/loader"
 
 const categories = [
   { title: "Common Conditions", href: "/pharmacy/common-conditions" },
@@ -82,6 +83,17 @@ const babyCareProducts = [
 export default function PharmacyPage() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+  
+    useEffect(() => {
+      const loadData = async () => {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1500))
+        setIsLoading(false)
+      }
+  
+      loadData()
+    }, [])
 
   const handleCartClick = () => {
     router.push("/cart")
@@ -89,6 +101,7 @@ export default function PharmacyPage() {
 
   return (
     <MobileLayout>
+      {isLoading && <Loader />}
       <div className="flex flex-col min-h-full bg-gray-50">
         {/* Header */}
         <div className="bg-purple-700 text-white">

@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 
 interface DoctorCardProps {
@@ -10,9 +9,19 @@ interface DoctorCardProps {
   hasInPerson?: boolean
   hasVideo?: boolean
   href: string
+  onClick: () => void
 }
 
-export function DoctorCard({ imageUrl, name, specialty, experience, hasInPerson, hasVideo, href }: DoctorCardProps) {
+export function DoctorCard({
+  imageUrl,
+  name,
+  specialty,
+  experience,
+  hasInPerson,
+  hasVideo,
+  href,
+  onClick,
+}: DoctorCardProps) {
   return (
     <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100">
       <Image
@@ -37,10 +46,10 @@ export function DoctorCard({ imageUrl, name, specialty, experience, hasInPerson,
           )}
         </div>
       </div>
-      <Link href={href} className="flex items-center text-purple-700 px-2 py-4">
+      <button onClick={onClick} className="flex items-center text-purple-700 px-2 py-4">
         <span className="text-[13px] mr-1">Details</span>
         <ChevronRight className="w-4 h-4" />
-      </Link>
+      </button>
     </div>
   )
 }

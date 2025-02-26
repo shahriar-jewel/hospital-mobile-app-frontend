@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Search, SlidersHorizontal, Heart, Brain, SmileIcon as Tooth } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -8,6 +8,7 @@ import { MobileLayout } from "@/components/layouts/mobile-layouts"
 import { SpecialtyChip } from "@/components/chips/specialty-chip"
 import { DoctorCard } from "@/components/cards/doctor-card"
 import { BottomNav } from "@/components/navigation/bottom-nav"
+import { Loader } from "@/components/ui/loader"
 
 const specialties = [
   { label: "Cardiology", icon: Heart },
@@ -59,9 +60,26 @@ export default function DoctorsPage() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
   const [activeSpecialty, setActiveSpecialty] = useState<string | null>("Cardiology")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const loadData = async () => {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      setIsLoading(false)
+    }
+
+    loadData()
+  }, [])
+
+  const handleDoctorClick = (href: string) => {
+    setIsLoading(true)
+    router.push(href)
+  }
 
   return (
     <MobileLayout>
+      {isLoading && <Loader />}
       <div className="flex flex-col h-full bg-gray-50">
         {/* Header */}
         <div className="bg-purple-700 text-white">
@@ -120,6 +138,7 @@ export default function DoctorsPage() {
                   hasInPerson={doctor.hasInPerson}
                   hasVideo={doctor.hasVideo}
                   href={doctor.href}
+                  onClick={() => handleDoctorClick(doctor.href)}
                 />
               ))}
             </div>
